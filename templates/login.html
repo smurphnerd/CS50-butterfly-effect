@@ -5,10 +5,13 @@ Register
 {% endblock %}
 
 {% block body %}
+{% if error %}
+{{ error }}
+{% endif %}
 <form action="/login" method="post">
     <h5>What's your name?</h5>
-    <input autocomplete="off" autofocus name="user" placeholder="Username" type="text">
-    <input autocomplete="off" name="password" placeholder="Password" type="text">
-    <button type="submit">Enter</button>
+    <input autocomplete="off" autofocus name="user" placeholder="Username" type="text" required>
+    <input autocomplete="off" name="password" placeholder="Password" type="text" required>
+    <button type="submit">Login</button>
 </form>
 {% endblock %}

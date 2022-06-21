@@ -36,16 +36,14 @@ def register():
         password = request.form['password']
 
         # Invalid usernames
-        if len(user) < 1:
-            return redirect(url_for('register', error='invalid username'))
-        
+        if not user:
+            return redirect(url_for('register', error='must provide username'))
         if db.execute('SELECT * FROM users WHERE username = ?', user):
             return redirect(url_for('register', error='username already taken'))
         
         # Invalid passwords
         if len(password) < 9:
             return redirect(url_for('register', error='password must be at least 8 characters'))
-        
         if password != request.form['confirm']:
             return redirect(url_for('register', error='passwords don\'t match'))
 
@@ -59,27 +57,52 @@ def register():
     # Reached via GET
     if request.method == 'GET':
         error = ''
-        if len(request.args) == 1:
+        if request.args:
             error = request.args['error']
         return render_template('register.html', error=error)
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """Log user in"""
     
+    # Clear session
+    session.pop('user_id', default=None)
+
+    # Reached via POST
     if request.method == 'POST':
-        # Ensure session is permanent
+        user = request.form['user']
+        password = request.form['password']
+
+        # Ensure there is a username and password
+        if not user:
+            return redirect(url_for('login', error='must enter a username'))
+        if not password:
+            return redirect(url_for('login', error='must enter a password'))
+
+        # Ensure username exists and password is correct
+        rows = db.execute('SELECT * FROM users WHERE username = ?', user)
+        if len(rows) != 1 or not check_password_hash(rows[0]['password_hash'], password):
+            return redirect(url_for('login', error='username or password is incorrect'))
+            
+        # If valid, create a permanent session
         session.permanent = True
-        session['user'] = request.form["user"]
+        session['user_id'] = rows[0]['id']
+
         return redirect('/')
     
-    if request.method == 'GET':
-        return render_template('login.html')
+    # Reached via GET
+    error = ''
+    if request.args:
+        error = request.args['error']
+    return render_template('login.html', error=error)
 
 
 @app.route('/logout')
 @login_required
 def logout():
+    """Log user out"""
 
-    session.pop('user', default=None)
+    # Clear session
+    session.pop('user_id', default=None)
     return redirect('/login')

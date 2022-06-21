@@ -1,101 +1,85 @@
 from cs50 import SQL
-from flask import Flask, redirect, render_template, request, session
-from flask_session import Session
+from flask import Flask, redirect, render_template, request, session, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
+from datetime import timedelta
 
-"""Config and session settings from CS50 finance"""
+from helpers import login_required
 
 # Configure application
 app = Flask(__name__)
-
-# Ensure templates are auto-reloaded
-app.config["TEMPLATES_AUTO_RELOADED"] = True
-
-# Configure session to use filysystem (instead of signed cookies)
-app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
-Session(app)
+app.secret_key = 'dev'
+app.permanent_session_lifetime = timedelta(days=365)
 
 # Configure CS50 Library to use SQLite database
-db = SQL("sqlite:///butterfly-effect.db")
+db = SQL('sqlite:///butterfly-effect.db')
 
-
-@app.after_request
-def after_request(response):
-    """Ensure responses aren't cached"""
-    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-    response.headers["Expires"] = 0
-    response.headers["Pragman"] = "no-cache"
-    return response
-
-
-@app.route("/", methods=["GET", "POST"])
+@app.route('/', methods=['GET', 'POST'])
+@login_required
 def index():
     """Default home page"""
 
     # Reached via POST
-    if request.method == "POST":
-        return
+    if request.method == 'POST':
+        pass
     
     # Reached via GET
-    return
+    return render_template('index.html', user=session['user'])
 
 
-@app.route("/register", methods=["GET", "POST"])
+@app.route('/register/', methods=['GET', 'POST'])
 def register():
-    """Register the user"""
+    """Register an account"""
 
     # Reached via POST
-    if request.method="POST":
-        return redirect("/")
+    if request.method == 'POST':
+        user = request.form['user']
+        password = request.form['password']
+
+        # Invalid usernames
+        if len(user) < 1:
+            return redirect(url_for('register', error='invalid username'))
+        
+        if db.execute('SELECT * FROM users WHERE username = ?', user):
+            return redirect(url_for('register', error='username already taken'))
+        
+        # Invalid passwords
+        if len(password) < 9:
+            return redirect(url_for('register', error='password must be at least 8 characters'))
+        
+        if password != request.form['confirm']:
+            return redirect(url_for('register', error='passwords don\'t match'))
+
+        # If all checks are passed, add to database
+        hash = generate_password_hash(password)
+        db.execute('INSERT INTO users (username, password_hash) VALUES (?, ?)', user, hash)
+
+        # Go to login screen
+        return redirect('/login')
     
     # Reached via GET
-    return render_template("register.html")
+    if request.method == 'GET':
+        error = ''
+        if len(request.args) == 1:
+            error = request.args['error']
+        return render_template('register.html', error=error)
 
 
-"""Login/logout taken from CS50 finance"""
-@app.route("/login", methods=["GET", "POST"])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    """Log user in"""
-
-    # Forget any user_id
-    session.clear()
-
-    # User reached route via POST (as by submitting a form via POST)
-    if request.method == "POST":
-
-        # Ensure username was submitted
-        if not request.form.get("username"):
-            return render_template("error.html", message="error")
-
-        # Ensure password was submitted
-        elif not request.form.get("password"):
-            return render_template("error.html", message="error")
-
-        # Query database for username
-        rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
-
-        # Ensure username exists and password is correct
-        if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
-            return render_template("error.html", message="error")
-
-        # Remember which user has logged in
-        session["user_id"] = rows[0]["id"]
-
-        # Redirect user to home page
-        return redirect("/")
-
-    # User reached route via GET (as by clicking a link or via redirect)
-    else:
-        return render_template("login.html")
+    
+    if request.method == 'POST':
+        # Ensure session is permanent
+        session.permanent = True
+        session['user'] = request.form["user"]
+        return redirect('/')
+    
+    if request.method == 'GET':
+        return render_template('login.html')
 
 
-@app.route("/logout")
+@app.route('/logout')
+@login_required
 def logout():
-    """Log user out"""
 
-    # Forget any user_id
-    session.clear()
-
-    # Redirect user to login form
-    return redirect("/")
+    session.pop('user', default=None)
+    return redirect('/login')

@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Create Account
+{% endblock title %}
+
+{% block body %}
+{% if error %}
+{{ error }}
+{% endif %}
+<form action="/register/" method="post">
+    <input autocomplete="off" autofocus name="user" placeholder="Username" type="text" required>
+    <input autocomplete="off" name="password" placeholder="Password" type="text" required>
+    <input autocomplete="off" name="confirm" placeholder="Confirm password" type="text" required>
+    <button type="submit">Register</button>
+</form>
+{% endblock body %}

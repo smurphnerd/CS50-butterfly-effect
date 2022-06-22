@@ -91,10 +91,3 @@ def LevelOrderTraversal(root: Node):
             n -= 1
    
         print() # Print new line between two levels
-
-first_node = create_root('first')
-first_node.make_child('second')
-first_node.find_node_by_key('1.1').make_child('third')
-first_node.find_node_by_key('1.1').make_child('fourth')
-first_node.find_node_by_key('1.1.2').edit_message('not fourth')
-LevelOrderTraversal(first_node)

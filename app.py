@@ -4,6 +4,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import timedelta
 
 from helpers import login_required
+from tree import Node, create_root
 
 # Configure application
 app = Flask(__name__)

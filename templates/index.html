@@ -5,7 +5,6 @@ Home
 {% endblock %}
 
 {% block body %}
-
 <h1>Add a root</h1>
 <form action="/" method="post">
     <input autocomplete="off" autofocus name="message" placeholder="Name" type="text" required>
@@ -18,8 +17,4 @@ Home
     <input autocomplete="off" autofocus name="message" placeholder="Message" type="text" required>
     <button name="add-child" type="submit">Add Child</button>
 </form>
-<h1>
-    {{ message }}
-    {{ parent_key }}
-</h1>
 {% endblock %}

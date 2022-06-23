@@ -1,7 +1,5 @@
 from functools import wraps
-from flask import redirect, session
-from cs50 import SQL
-
+from flask import redirect, session, render_template
 
 def login_required(f):
     """
@@ -17,12 +15,15 @@ def login_required(f):
     return decorated_function
 
 
-# Add database
-db = SQL('sqlite:///butterfly-effect.db')
-
-# Make a child for this node
-def make_child(key, message):
-    # Check that key exists
-    parent = db.execute('SELECT * FROM nodes WHERE user_id = ? AND key = ?', session['user_id'], key)
-    if len(parent) != 1:
-        return redirect('/index')
+def apology(message, code=400):
+    """Render message as an apology to user. CS50 Finance."""
+    def escape(s):
+        """
+        Escape special characters.
+        https://github.com/jacebrowning/memegen#special-characters
+        """
+        for old, new in [("-", "--"), (" ", "-"), ("_", "__"), ("?", "~q"),
+                         ("%", "~p"), ("#", "~h"), ("/", "~s"), ("\"", "''")]:
+            s = s.replace(old, new)
+        return s
+    return render_template("apology.html", top=code, bottom=escape(message)), code

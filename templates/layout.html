@@ -7,6 +7,15 @@
   <meta name="viewport" content="initial-scale=1, width=device-width" />
   <link href="/static/styles.css" rel="stylesheet" />
   <title>Butterfly Effect: {% block title %}{% endblock %}</title>
+  {% with errors = get_flashed_messages() %}
+  {% if errors %}
+  <ul>
+    {% for error in errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% endwith %}
 </head>
 
 <body>

@@ -17,7 +17,7 @@ class Node:
         return
 
 
-    # Get this node's key
+    # Get this node's next child's key
     def get_key(self) -> str:
         key = self.key + '.' + str(len(self.children) + 1)
         return key

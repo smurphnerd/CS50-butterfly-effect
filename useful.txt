@@ -1,0 +1,9 @@
+CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, username TEXT NOT NULL, password_hash TEXT NOT NULL, roots INTEGER DEFAULT 0 NOT NULL);
+CREATE TABLE nodes (user_id INTEGER NOT NULL, key TEXT NOT NULL, message TEXT NOT NULL, children TEXT[], parent TEXT, FOREIGN KEY (user_id) REFERENCES users(id));
+
+export FLASK_ENV=development
+
+.headers on
+.mode column
+.width auto
+.nullvalue NULL

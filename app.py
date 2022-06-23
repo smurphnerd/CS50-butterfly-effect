@@ -4,7 +4,6 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import timedelta
 
 from helpers import login_required
-from tree import Node, create_root
 
 # Configure application
 app = Flask(__name__)
@@ -14,6 +13,25 @@ app.permanent_session_lifetime = timedelta(days=365)
 # Configure CS50 Library to use SQLite database
 db = SQL('sqlite:///butterfly-effect.db')
 
+
+@app.route('/add-child', methods=['POST'])
+@login_required
+def app_child():
+    parent_key = request.form['parent-key']
+    parent = db.execute('SELECT * FROM nodes WHERE user_id = ? AND key = ?', session['user_id'], parent_key)
+
+    # Check that parent exists
+    if len(parent) != 1:
+        return redirect(url_for('index'), error='parent doesn\'t exist')
+    
+    # Add child to parent's children
+    if not parent[0]['children']:
+        length = 0
+    else:
+        length = len(parent[0]['children'])
+    return redirect(url_for('index', length=length))
+
+
 @app.route('/', methods=['GET', 'POST'])
 @login_required
 def index():
@@ -21,10 +39,32 @@ def index():
 
     # Reached via POST
     if request.method == 'POST':
-        pass
+            
+        # Ensure input was provided
+        message = request.form['root']
+        if len(message) == 0:
+            return redirect('/')
+        
+        # Get key
+        existing_roots = db.execute('SELECT roots FROM users WHERE id = ?', session['user_id'])[0]['roots']
+        new_roots = existing_roots + 1
+        key = str(new_roots)
+
+        # Add root count into users
+        db.execute('UPDATE users SET roots = ? WHERE id = ?', new_roots, session['user_id'])
+
+        # Add root to database
+        db.execute('INSERT INTO nodes (user_id, key, message) VALUES (?, ?, ?)', session['user_id'], key, message)
+        return redirect('/')
     
     # Reached via GET
-    return render_template('index.html', user=session['user'])
+    error = ''
+    if request.args:
+        length = request.args['length']
+    if db.execute('SELECT roots FROM users WHERE id = ?', session['user_id'])[0]['roots'] == 0:
+        return render_template('index.html')
+
+    return render_template('index.html', root='there is a root', length=length)
 
 
 @app.route('/register/', methods=['GET', 'POST'])
@@ -107,3 +147,6 @@ def logout():
     # Clear session
     session.pop('user_id', default=None)
     return redirect('/login')
+
+if __name__ == '__main__':
+    app.run(debug=True)

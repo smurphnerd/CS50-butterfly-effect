@@ -5,6 +5,25 @@ Home
 {% endblock %}
 
 {% block body %}
-Index
-{{ user }}
+
+{% if not root %}
+<h1>Name your first butterfly effect</h1>
+<form action="/" method="post">
+    <input autocomplete="off" autofocus name="root" placeholder="Name" type="text" required>
+    <button type="submit">Add</button>
+</form>
+{% endif %}
+
+{% if root %}
+<h1>Add child</h1>
+<form action="/index" method="post">
+    <input autocomplete="off" autofocus name="parent-key" placeholder="Parent key" type="text" required>
+    <button type="submit">Add Child</button>
+</form>
+{% endif %}
+
+{% if length %}
+{{ length }}
+{% endif %}
+
 {% endblock %}

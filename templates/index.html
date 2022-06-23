@@ -6,24 +6,20 @@ Home
 
 {% block body %}
 
-{% if not root %}
-<h1>Name your first butterfly effect</h1>
+<h1>Add a root</h1>
 <form action="/" method="post">
-    <input autocomplete="off" autofocus name="root" placeholder="Name" type="text" required>
-    <button type="submit">Add</button>
+    <input autocomplete="off" autofocus name="message" placeholder="Name" type="text" required>
+    <button name="add-root" type="submit">Add</button>
 </form>
-{% endif %}
 
-{% if root %}
 <h1>Add child</h1>
 <form action="/" method="post">
     <input autocomplete="off" autofocus name="parent-key" placeholder="Parent key" type="text" required>
+    <input autocomplete="off" autofocus name="message" placeholder="Message" type="text" required>
     <button name="add-child" type="submit">Add Child</button>
 </form>
-{% endif %}
-
-{% if length %}
-{{ length }}
-{% endif %}
-
+<h1>
+    {{ message }}
+    {{ parent_key }}
+</h1>
 {% endblock %}

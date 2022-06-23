@@ -3,7 +3,8 @@ from flask import Flask, redirect, render_template, request, session, flash
 from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import timedelta
 
-from helpers import login_required, apology
+from helpers import login_required
+import bfly
 
 # Configure application
 app = Flask(__name__)
@@ -22,29 +23,25 @@ def index():
     # Reached via POST
     if request.method == 'POST':
         
-        #if request.form['add-child']
-        # Ensure input was provided
-        message = request.form['root']
-        if len(message) == 0:
+        # Add a root node
+        if 'add-root' in request.form:
+            message = request.form['message']
+
+            bfly.add_root(message)
+
             return redirect('/')
-        
-        # Get key
-        existing_roots = db.execute('SELECT roots FROM users WHERE id = ?', session['user_id'])[0]['roots']
-        new_roots = existing_roots + 1
-        key = str(new_roots)
 
-        # Add root count into users
-        db.execute('UPDATE users SET roots = ? WHERE id = ?', new_roots, session['user_id'])
+        # Add a child node
+        if 'add-child' in request.form:
+            parent_key = request.form['parent-key']
+            message = request.form['message']
 
-        # Add root to database
-        db.execute('INSERT INTO nodes (user_id, key, message) VALUES (?, ?, ?)', session['user_id'], key, message)
-        return redirect('/')
+            bfly.add_child(parent_key, message)
+
+            return redirect('/')
     
     # Reached via GET
-    if db.execute('SELECT roots FROM users WHERE id = ?', session['user_id'])[0]['roots'] == 0:
-        return render_template('index.html')
-
-    return render_template('index.html', root='there is a root')
+    return render_template('index.html')
 
 
 @app.route('/register/', methods=['GET', 'POST'])

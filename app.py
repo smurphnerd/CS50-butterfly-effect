@@ -48,6 +48,14 @@ def index():
             db.execute('UPDATE nodes SET message = ? WHERE id = ?', message, node_id)
 
             return redirect('/')
+
+        # Delete a node and its children
+        if 'delete-node' in request.form:
+            node_id = request.form['node-id']
+
+            bfly.delete_node(node_id)
+
+            return redirect('/')
     
     # Reached via GET
     return render_template('index.html')

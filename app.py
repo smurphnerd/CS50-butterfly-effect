@@ -33,10 +33,19 @@ def index():
 
         # Add a child node
         if 'add-child' in request.form:
-            parent_key = request.form['parent-key']
+            node_id = request.form['node-id']
             message = request.form['message']
 
-            bfly.add_child(parent_key, message)
+            bfly.add_child(node_id, message)
+
+            return redirect('/')
+
+        # Edit a node's message
+        if 'edit-message' in request.form:
+            node_id = request.form['node-id']
+            message = request.form['message']
+
+            db.execute('UPDATE nodes SET message = ? WHERE id = ?', message, node_id)
 
             return redirect('/')
     

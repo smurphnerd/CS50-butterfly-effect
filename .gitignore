@@ -1,2 +1,5 @@
-__pychache__
-.txt
+
+/__pychache__
+*.txt
+tree.py
+temp.py

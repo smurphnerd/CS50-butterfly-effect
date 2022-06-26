@@ -58,6 +58,8 @@ def index():
             return redirect('/')
     
     # Reached via GET
+    bfly.get_json('r12')
+
     return render_template('index.html')
 
 
@@ -93,6 +95,8 @@ def register():
         return redirect('/register')
     
     # Reached via GET
+
+
     return render_template('register.html')
 
 

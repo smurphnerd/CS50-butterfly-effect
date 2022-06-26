@@ -1,4 +1,3 @@
-from hashlib import new
 from flask import session, flash
 from cs50 import SQL
 
@@ -106,3 +105,17 @@ def rename_nodes(key):
         db.execute('UPDATE children SET parent_key = REPLACE(parent_key, ?, ?), child_key = REPLACE(child_key, ?, ?) WHERE user_id = ?',
                    old_key, new_key, old_key, new_key, session['user_id'])
         db.execute('UPDATE nodes SET key = REPLACE(key, ?, ?) WHERE user_id = ?', old_key, new_key, session['user_id'])
+
+
+def get_json(root_key):
+    # Find the root node
+    root = db.execute('SELECT * FROM nodes WHERE user = ? AND key = ?', session['user_id'], root_key)[0]
+    generate_tree(root)
+
+
+def generate_tree(root):
+    children = db.execute('SELECT * FROM children WHERE node_id = ?', root['id'])
+    if len(children) != 0:
+        
+    # Get the message
+    

@@ -11,9 +11,9 @@ export FLASK_ENV=development
 .nullvalue NULL
 
 CREATE TABLE sqlite_sequence(name,seq);
-CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, username TEXT NOT NULL, password_hash TEXT NOT NULL, roots INTEGER DEFAULT 0 NOT NULL);
-CREATE TABLE nodes (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user_id INTEGER NOT NULL, key TEXT NOT NULL, message TEXT NOT NULL, FOREIGN KEY (user_id) REFERENCES users(id));
-CREATE TABLE children (user_id INTEGER NOT NULL, node_id INTEGER NOT NULL, parent_key TEXT NOT NULL, child_key TEXT NOT NULL, FOREIGN KEY (user_id) REFERENCES users(id), FOREIGN KEY (node_id) REFERENCES nodes(id));
+CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, username TEXT NOT NULL, password_hash TEXT NOT NULL);
+CREATE TABLE nodes (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user_id INTEGER NOT NULL, message TEXT NOT NULL, root_node BIT, FOREIGN KEY (user_id) REFERENCES users(id));
+CREATE TABLE children (parent_id INTEGER NOT NULL, child_id INTEGER NOT NULL, FOREIGN KEY (parent_id) REFERENCES nodes(id), FOREIGN KEY (child_id) REFERENCES nodes(id));
 
 https://www.cssscript.com/minimalist-tree-view-pure-css/
 https://www.cssscript.com/demo/visualize-hierarchical-tree-d3-mitch/

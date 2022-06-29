@@ -53,12 +53,17 @@ def index():
         if 'delete-node' in request.form:
             node_id = request.form['node-id']
 
+            node = db.execute('SELECT * FROM nodes WHERE id = ?', node_id)
+
+            if len(node) != 1:
+                return flash('invalid id')
+
             bfly.delete_node(node_id)
 
             return redirect('/')
     
     # Reached via GET
-    bfly.get_json('r12')
+    # bfly.get_json('r12')
 
     return render_template('index.html')
 

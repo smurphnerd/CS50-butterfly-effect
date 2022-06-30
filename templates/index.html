@@ -31,7 +31,10 @@ Home
     <button name="delete-node" type="submit">Delete Node</button>
 </form>
 
-{% macro display_tree() %}
+<h1>Change default</h1>
+<form action="/" method="post">
+    <input autocomplete="off" name="node-id" placeholder="ID" type="text" required>
+    <button name="root-session" type="submit">Change default</button>
+</form>
 
-{% endmacro %}
 {% endblock %}

@@ -51,19 +51,46 @@ def index():
 
         # Delete a node and its children
         if 'delete-node' in request.form:
-            node_id = request.form['node-id']
+            node_id = int(request.form['node-id'])
 
-            node = db.execute('SELECT * FROM nodes WHERE id = ?', node_id)
+            node = db.execute('SELECT * FROM nodes WHERE user_id = ? AND id = ?', session['user_id'], node_id)
 
             if len(node) != 1:
-                return flash('invalid id')
+                flash('invalid id')
 
-            bfly.delete_node(node_id)
+            else:
+                bfly.delete_node(node_id)
+
+                # Check if the deleted node was the session node
+                if node_id == session['root_id']:
+                        roots = db.execute('SELECT id FROM nodes WHERE user_id = ? AND root_node = 1', session['user_id'])
+                        # Change the default root to the latest root
+                        if len(roots) >= 1:
+                            session['root_id'] = roots[-1]['id']
+                        
+                        # Clear the default root
+                        else:
+                            session.pop('root_id', default=None)
+
+            return redirect('/')
+
+        # Change the session's default root
+        if 'root-session' in request.form:
+
+            if len(db.execute('SELECT * FROM nodes WHERE user_id = ? AND id = ?', session['user_id'], request.form['node-id'])) != 1:
+                flash('invalid id')
+            
+            else:
+                session['root_id'] = int(request.form['node-id'])
 
             return redirect('/')
     
     # Reached via GET
-    # bfly.get_json('r12')
+    if 'root_id' in session:
+        bfly.init_json(session['root_id'])
+    
+    else:
+        bfly.init_json(None)
 
     return render_template('index.html')
 
@@ -111,6 +138,7 @@ def login():
 
     # Clear session
     session.pop('user_id', default=None)
+    session.pop('root_id', default=None)
 
     # Reached via POST
     if request.method == 'POST':
@@ -148,6 +176,7 @@ def logout():
     """Log user out"""
 
     session.pop('user_id', default=None)
+    session.pop('root_id', default=None)
     return redirect('/login')
 
 

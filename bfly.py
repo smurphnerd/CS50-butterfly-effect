@@ -68,7 +68,7 @@ def delete_node(node_id):
 # Convert a root to a json file
 def init_json(node_id):
     # Get file name
-    file = 'user' + str(session['user_id']) + '.json'
+    file = 'static/user_data/user' + str(session['user_id']) + '.json'
 
     if node_id == None:
         open(file, 'w').close()

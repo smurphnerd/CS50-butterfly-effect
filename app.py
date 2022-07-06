@@ -92,7 +92,7 @@ def index():
     else:
         bfly.init_json(None)
 
-    return render_template('index.html')
+    return render_template('index.html', user_id = session['user_id'])
 
 
 @app.route('/register/', methods=['GET', 'POST'])
@@ -160,6 +160,10 @@ def login():
         else:
             session.permanent = True
             session['user_id'] = rows[0]['id']
+            roots = db.execute('SELECT id FROM nodes WHERE user_id = ? AND root_node = 1', session['user_id'])
+            # Change the default root to the latest root
+            if len(roots) >= 1:
+                session['root_id'] = roots[-1]['id']
 
             # Access to index page
             return redirect('/')

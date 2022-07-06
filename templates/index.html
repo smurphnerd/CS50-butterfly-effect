@@ -1,10 +1,16 @@
 {% extends "layout.html" %}
 
+{% block script %}
+<script src="static/index.js" defer></script>
+{% endblock script %}
+
 {% block title %}
 Home
 {% endblock %}
 
 {% block body %}
+<!-- Pass the user_id to the js file -->
+<p id="user-id" style="display: none;">{{ user_id }}</p>
 <h1>Add a root</h1>
 <form action="/" method="post">
     <input autocomplete="off" name="message" placeholder="Name" type="text" required>
@@ -37,4 +43,5 @@ Home
     <button name="root-session" type="submit">Change default</button>
 </form>
 
+<ul id="myUL"></ul>
 {% endblock %}

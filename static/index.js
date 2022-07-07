@@ -1,6 +1,5 @@
 const element = document.querySelector('#myUL');
 const user = document.getElementById('user-id').innerHTML;
-console.log(user);
 fetch("static/user_data/user" + user + ".json").then(async response => {
     response = await response.json();
     displayTree(response);
@@ -8,6 +7,8 @@ fetch("static/user_data/user" + user + ".json").then(async response => {
     addCaretListeners();
 
     addRootListeners();
+
+    changeDefault();
 })
     .catch(error => {
         element.innerHTML += `${error}`;
@@ -32,7 +33,6 @@ function displayTree(response, parent = element) {
         node.appendChild(newRoot)
         // Add each child to the new node
         for (child of response['children']) {
-            console.log(child['id']);
             displayTree(child, newRoot);
         }
     }
@@ -79,4 +79,60 @@ function addRootListeners() {
         });
     }
 }
+
+
+// Change default root
+function changeDefault() {
+    document.querySelector(".set-default-btn").addEventListener("click", function () {
+        // Get the invis form
+        const form = document.querySelector("#invis-form");
+        // Get the selected node's id
+        let div = document.querySelector(".root-item-toggled");
+        if (div == null) {
+            alert('No effects have been selected! :p');
+            return
+        }
+        const id = div.id;
+        // Add values to a new input element
+        const idInput = document.createElement("input");
+        idInput.name = 'node-id';
+        idInput.value = id;
+        // Add the type to a new input element
+        const typeInput = document.createElement("input");
+        typeInput.name = 'root-session';
+
+        // Append new elements to the invis form
+        form.appendChild(idInput);
+        form.appendChild(typeInput);
+
+        // Submit the form
+        form.submit();
+    });
+}
+
+
+// Exit button functionality
+var exitBtn = document.querySelectorAll(".exit-btn");
+
+for (i = 0; i < 2; i++) {
+    exitBtn[i].addEventListener("mouseover", function (e) {
+        e.target.src = "/static/images/exit-white.png";
+    });
+    exitBtn[i].addEventListener("mouseout", function (e) {
+        e.target.src = "/static/images/exit-grey.png";
+    });
+}
+
+document.getElementById("exit-btn-open").addEventListener("click", function () {
+    document.querySelector(".sidebar").style.width = 0;
+    document.querySelector(".main-content").style.marginLeft = "2.5vw";
+    document.querySelector(".closed-sidebar").style.width = "2.5vw";
+});
+
+document.getElementById("exit-btn-close").addEventListener("click", function () {
+    document.querySelector(".sidebar").style.width = "18vw";
+    document.querySelector(".main-content").style.marginLeft = "18vw";
+    document.querySelector(".closed-sidebar").style.width = 0;
+});
+
 // https://www.developer.com/design/creating-a-tree-diagram-with-d3-js/

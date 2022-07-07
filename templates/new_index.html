@@ -11,6 +11,9 @@ Home
 {% block body %}
 <!-- Pass the user_id to the js file -->
 <p id="user-id" style="display: none;">{{ user_id }}</p>
+<form id="invis-form" action="/" method="post" style="display: none;"></form>
+<form id="add-root">
+</form>
 <div class="main-page">
     <div class="sidebar">
         <div class="sidebar-content">
@@ -21,20 +24,26 @@ Home
             <div>
                 {% if roots %}
                 {% for root in roots %}
-                <div class="root-item root-item-untoggled" value="{{ root['id'] }}">
-                    <img src="/static/images/light-blue-butterfly.png">
+                <div class="root-item root-item-untoggled" id="{{ root['id'] }}">
+                    <img src="/static/images/butterfly-lightblue.png">
                     {{ root['message'] }}
                 </div>
                 {% endfor %}
             </div>
             <button class="set-default-btn">Set as default</button>
             {% else %}
-            No effects yet!
-            {% endif %}
+            Add your first effect!
         </div>
+        {% endif %}
     </div>
-    <div class="main-content">
-        <ul id="myUL"></ul>
-    </div>
+    <img id="exit-btn-open" class="exit-btn" src="/static/images/exit-grey.png">
+</div>
+<div class="closed-sidebar">
+    <img id="exit-btn-close" class="exit-btn" src="/static/images/exit-grey.png">
+</div>
+<div id="main" class="main-content">
+    <img class="background-butterfly" src="/static/images/grey-butterfly.png">
+    <ul id="myUL"></ul>
+</div>
 </div>
 {% endblock %}

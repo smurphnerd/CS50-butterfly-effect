@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block script %}
+<script src="static/index.js" defer></script>
+{% endblock script %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block body %}
+<!-- Pass the user_id to the js file -->
+<p id="user-id" style="display: none;">{{ user_id }}</p>
+<div class="main-page">
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <div class="my-effects">
+                <div class="my-effects-title">My effects</div>
+                <button>&#43;</button>
+            </div>
+            <div>
+                {% if roots %}
+                {% for root in roots %}
+                <div class="root-item root-item-untoggled" value="{{ root['id'] }}">
+                    <img src="/static/images/light-blue-butterfly.png">
+                    {{ root['message'] }}
+                </div>
+                {% endfor %}
+            </div>
+            <button class="set-default-btn">Set as default</button>
+            {% else %}
+            No effects yet!
+            {% endif %}
+        </div>
+    </div>
+    <div class="main-content">
+        <ul id="myUL"></ul>
+    </div>
+</div>
+{% endblock %}

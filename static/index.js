@@ -5,17 +5,9 @@ fetch("static/user_data/user" + user + ".json").then(async response => {
     response = await response.json();
     displayTree(response);
 
-    // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_treeview
-    var toggler = document.getElementsByClassName("caret");
-    var i;
-    let len = toggler.length
+    addCaretListeners();
 
-    for (i = 0; i < len; i++) {
-        toggler[i].addEventListener("click", function () {
-            this.parentElement.querySelector(".nested").classList.toggle("active");
-            this.classList.toggle("caret-down");
-        });
-    }
+    addRootListeners();
 })
     .catch(error => {
         element.innerHTML += `${error}`;
@@ -45,5 +37,46 @@ function displayTree(response, parent = element) {
         }
     }
     return
+}
+
+
+function addCaretListeners() {
+    // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_treeview
+    var toggler = document.getElementsByClassName("caret");
+    var i;
+    let len = toggler.length
+
+    for (i = 0; i < len; i++) {
+        toggler[i].addEventListener("click", function () {
+            this.parentElement.querySelector(".nested").classList.toggle("active");
+            this.classList.toggle("caret-down");
+        });
+    }
+}
+
+
+function addRootListeners() {
+    let body = document.querySelector("body")
+
+    var toggler = document.querySelectorAll(".root-item")
+    var i;
+    let len = toggler.length;
+
+    // Deslect the root toggler if the body is clicked
+    body.addEventListener("click", function (e) {
+        if (!e.target.classList.contains('root-item-toggled')) {
+            document.querySelector(".root-item-toggled").className = "root-item root-item-untoggled";
+        }
+    });
+
+    // Change class if root is clicked
+    for (i = 0; i < len; i++) {
+        toggler[i].addEventListener("click", function () {
+            for (j = 0; j < len; j++) {
+                toggler[j].className = "root-item root-item-untoggled"
+            }
+            this.className = "root-item root-item-toggled";
+        });
+    }
 }
 // https://www.developer.com/design/creating-a-tree-diagram-with-d3-js/

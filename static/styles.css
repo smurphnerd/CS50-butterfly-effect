@@ -44,6 +44,14 @@ nav a {
   padding-left: 1.5vw;
 }
 
+nav a:hover {
+  color: #fff;
+}
+
+nav a:active {
+  color: #ccc;
+}
+
 #not-last {
   border-right-style: solid;
   border-right-color: #ccc;
@@ -99,6 +107,123 @@ nav a {
   font-family: Consolas, monaco, monospace;
   font-size: 1.5rem;
   margin-top: 1.5vh;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  color: #fff;
+}
+
+.login-form button:active {
+  color: #ccc;
+}
+
+
+/* Index page */
+.main-page {
+  display: flex;
+}
+
+.sidebar {
+  width: 18vw;
+  height: 100%;
+  position: fixed;
+  background-color: #252526;
+  z-index: 1;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sidebar-content {
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+  margin-left: 1vw;
+  margin-right: 1vw;
+}
+
+.main-content {
+  margin-left: 18vw;
+}
+
+.my-effects {
+  display: flex;
+}
+
+.my-effects-title {
+  margin-top: 0;
+  margin-bottom: 1.6vh;
+  font-size: 1.6vw;
+  font-weight: bold;
+}
+
+.my-effects button {
+  font-size: 2vw;
+  height: 2.2vw;
+  width: 2.2vw;
+  cursor: pointer;
+  border-radius: 70%;
+  border-color: #ccc;
+  border-style: solid;
+  margin-left: 0.8vw;
+  border-width: 1px;
+  background-color: transparent;
+  color: #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 
+}
+
+.my-effects button:hover {
+  border-color: #fff;
+  color: #fff;
+}
+
+.my-effects button:active {
+  border-color: #ccc;
+  color: #ccc;
+}
+
+.root-item {
+  padding-top: 0.4vh;
+  padding-bottom: 0.4vh;
+  padding-left: 0.2vw;
+  padding-right: 0.2vw;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.root-item-untoggled:hover {
+  background-color: #2a2d2e;
+}
+
+.root-item img {
+  height: 0.7rem;
+  margin-right: 0.3vw;
+}
+
+.root-item-toggled {
+  background-color: #094771;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #007fd4;
+}
+
+.set-default-btn {
+  background-color: #0e639c;
+  color: #fff;
+  width: 100%;
+  border-style: none;
+  padding: 7px;
+  margin-top: 2vh;
+  cursor: pointer;
+}
+
+.set-default-btn:hover {
+  background-color: #1177bb;
+}
+
+.set-default-btn:active {
+  background-color: #0e639c;
 }
 
 
@@ -123,7 +248,7 @@ ul, #myUL {
 }
 
 .caret::before {
-  content: "\25B6";
+  content: ">";
   color: black;
   display: inline-block;
   margin-right: 6px;

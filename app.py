@@ -95,7 +95,8 @@ def index():
         else:
             bfly.init_json(None)
 
-        return render_template('index.html', user_id = session['user_id'])
+        root_list = db.execute('SELECT * FROM nodes WHERE user_id = ? AND root_node = 1', session['user_id'])
+        return render_template('new_index.html', user_id = session['user_id'], roots = root_list)
 
 
 @app.route('/register/', methods=['GET', 'POST'])

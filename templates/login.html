@@ -8,10 +8,11 @@ Register
 {% if error %}
 {{ error }}
 {% endif %}
-<form action="/login" method="post">
-    <h5>What's your name?</h5>
-    <input autocomplete="off" autofocus name="user" placeholder="Username" type="text" required>
-    <input autocomplete="off" name="password" placeholder="Password" type="text" required>
-    <button type="submit">Login</button>
-</form>
+<div class="login-div">
+    <form class="login-form" action="/login" method="post">
+        <input autocomplete="off" autofocus name="user" placeholder="Username" type="text" required>
+        <input autocomplete="off" name="password" placeholder="Password" type="password" required>
+        <button type="submit">Login →</button>
+    </form>
+</div>
 {% endblock %}

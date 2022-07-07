@@ -1,4 +1,4 @@
-const element = document.querySelector('ul');
+const element = document.querySelector('#myUL');
 const user = document.getElementById('user-id').innerHTML;
 console.log(user);
 fetch("static/user_data/user" + user + ".json").then(async response => {

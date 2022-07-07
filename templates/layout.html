@@ -22,7 +22,20 @@
 </head>
 
 <body>
-  <header></header>
+  <nav>
+    <div class="navbar"></div>
+    {% if session["user_id"] %}
+    <ul>
+      <li><a id="not-last" href="/">Home</a></li>
+      <li><a href="/logout">Logout</a></li>
+    </ul>
+    {% else %}
+    <ul>
+      <li><a id="not-last" href="/login">Login</a></li>
+      <li><a href="/register/">Register</a></li>
+    </ul>
+    {% endif %}
+  </nav>
   {% block body %}{% endblock %}
 </body>
 

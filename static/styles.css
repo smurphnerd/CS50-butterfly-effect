@@ -1,15 +1,105 @@
 /* Default layout */
+html {
+  padding: 0;
+  margin: 0;
+}
+
 body {
   background-color: #1e1e1e;
   font-family: Consolas, monaco, monospace;
-  color: #fff;
+  color: #ccc;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-header {
+nav {
+  background-color: #2d2d2d;
+  width: 100vw;
+  height: 8vh;
+  display: flex;
+  justify-content: center;
+}
 
+nav ul {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding-inline-start: 0;
+  display: flex;
+}
+
+nav li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+nav a {
+  text-decoration: none;
+  color: #ccc;
+  font-size: 1.8rem;
+  padding-right: 1.5vw;
+  padding-left: 1.5vw;
+}
+
+#not-last {
+  border-right-style: solid;
+  border-right-color: #ccc;
+  border-width: 2px;
+}
+
+@media screen and (max-width: 800px) {
+  nav a {
+    font-size: 1.2rem;
+    padding-right: 3vw;
+    padding-left: 3vw;
+  }
 }
 
 
+/* Welcome page */
+#welcome-img {
+  height: 30vw;
+  margin: auto;
+  padding-bottom: 10vh;
+}
+
+
+/* Login and register */
+.login-div {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  margin-top: 6vh;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form input {
+  background-color: transparent;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  border-color: #ccc;
+  padding: 0.4vw;
+  font-size: 1.5rem;
+  color: #ccc;
+  margin-bottom: 2.5vh;
+}
+
+.login-form button {
+  background-color: transparent;
+  border-style: none;
+  color: #ccc;
+  font-family: Consolas, monaco, monospace;
+  font-size: 1.5rem;
+  margin-top: 1.5vh;
+}
 
 
 /* Tree view for node list */

@@ -16,7 +16,6 @@ db = SQL('sqlite:///butterfly-effect.db')
 
 
 @app.route('/', methods=['GET', 'POST'])
-@login_required
 def index():
     """Default home page"""
 
@@ -86,13 +85,17 @@ def index():
             return redirect('/')
     
     # Reached via GET
-    if 'root_id' in session:
-        bfly.init_json(session['root_id'])
-    
-    else:
-        bfly.init_json(None)
+    if session.get('user_id') is None:
+        return render_template('welcome.html')
 
-    return render_template('index.html', user_id = session['user_id'])
+    else:    
+        if 'root_id' in session:
+            bfly.init_json(session['root_id'])
+        
+        else:
+            bfly.init_json(None)
+
+        return render_template('index.html', user_id = session['user_id'])
 
 
 @app.route('/register/', methods=['GET', 'POST'])

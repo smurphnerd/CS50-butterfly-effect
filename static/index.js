@@ -6,6 +6,8 @@ fetch("static/user_data/user" + user + ".json").then(async response => {
 
     addCaretListeners();
 
+    addEffectListeners();
+
     addRootListeners();
 
     changeDefault();
@@ -52,6 +54,12 @@ function addCaretListeners() {
             this.classList.toggle("caret-down");
         });
     }
+}
+
+
+// Add highlight functionality for list items
+function addEffectListeners() {
+
 }
 
 
@@ -123,16 +131,28 @@ for (i = 0; i < 2; i++) {
     });
 }
 
-document.getElementById("exit-btn-open").addEventListener("click", function () {
+document.getElementById("exit-btn-close").addEventListener("click", function () {
     document.querySelector(".sidebar").style.width = 0;
     document.querySelector(".main-content").style.marginLeft = "2.5vw";
     document.querySelector(".closed-sidebar").style.width = "2.5vw";
 });
 
-document.getElementById("exit-btn-close").addEventListener("click", function () {
+document.getElementById("exit-btn-open").addEventListener("click", function () {
     document.querySelector(".sidebar").style.width = "18vw";
     document.querySelector(".main-content").style.marginLeft = "18vw";
     document.querySelector(".closed-sidebar").style.width = 0;
 });
+
+
+// Pop up form open and close
+document.querySelector("#add-effect-btn").addEventListener("click", function () {
+    document.querySelector(".pop-up-forms").style.display = "block";
+    document.querySelector("#add-root").style.display = "flex";
+});
+
+document.querySelector(".exit-pop-up-btn").addEventListener("click", function () {
+    document.querySelector(".pop-up-forms").style.display = "none";
+    document.querySelector("#add-root").style.display = "none";
+})
 
 // https://www.developer.com/design/creating-a-tree-diagram-with-d3-js/

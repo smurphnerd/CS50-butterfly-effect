@@ -12,14 +12,21 @@ Home
 <!-- Pass the user_id to the js file -->
 <p id="user-id" style="display: none;">{{ user_id }}</p>
 <form id="invis-form" action="/" method="post" style="display: none;"></form>
-<form id="add-root">
-</form>
+<div class="pop-up-forms">
+    <button class="exit-pop-up-btn">&#10005;</button>
+    <form id="add-root" action="/" method="post">
+        <h3>Create butterfly effect</h3>
+        <textarea rows="5" cols="60" name="message" placeholder="Effect name (max 200 characters)" maxlength="200"
+            type="text" required></textarea>
+        <button name="add-root" type="submit">Add effect</button>
+    </form>
+</div>
 <div class="main-page">
     <div class="sidebar">
         <div class="sidebar-content">
             <div class="my-effects">
                 <div class="my-effects-title">My effects</div>
-                <button>&#43;</button>
+                <button id="add-effect-btn" title="Add effect">&#43;</button>
             </div>
             <div>
                 {% if roots %}
@@ -36,14 +43,19 @@ Home
         </div>
         {% endif %}
     </div>
-    <img id="exit-btn-open" class="exit-btn" src="/static/images/exit-grey.png">
+    <img id="exit-btn-close" title="Collapse" class="exit-btn" src="/static/images/exit-grey.png">
 </div>
 <div class="closed-sidebar">
-    <img id="exit-btn-close" class="exit-btn" src="/static/images/exit-grey.png">
+    <img id="exit-btn-open" title="Open sidebar" class="exit-btn" src="/static/images/exit-grey.png">
 </div>
 <div id="main" class="main-content">
-    <img class="background-butterfly" src="/static/images/grey-butterfly.png">
+    <div class="tools">
+        <button title="Add consequence"><img src="/static/images/add-child.png"></button>
+        <button title="Edit message"><img src="/static/images/edit-icon.png"></button>
+        <button title="Delete effect"><img src="/static/images/bin-grey.png"></button>
+    </div>
     <ul id="myUL"></ul>
+    <img class="background-butterfly" src="/static/images/grey-butterfly.png">
 </div>
 </div>
 {% endblock %}

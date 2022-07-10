@@ -281,7 +281,7 @@ nav a:active {
   height: 75vh;
   position: absolute;
   left: 50%;
-  z-index: 1;
+  z-index: -1;
   transform: translateX(-50%);
   margin-top: 7vh;
 }
@@ -398,17 +398,55 @@ nav a:active {
   width: 1.3rem;
 }
 
+
+/* Tree view styling */
+.root-node {
+  position: relative;
+  overflow: hidden;
+}
+
+.tier-line{
+  width: 0.1px;
+  height: 100%;
+  position: absolute;
+  top: 1.2rem;
+  margin-left: 2.5px;
+}
+
+.node {
+  cursor: pointer;
+  padding: 0.3vh 0.1vw;
+}
+
+.node-toggled {
+  background-color: #264f78;
+  border-style: none;
+  border-radius: 3px;
+  caret-color: #264f78;
+}
+
+.node-untoggled:hover {
+  background-color: #2a2d2e;
+  caret-color: #2a2d2e;
+  border-style: none;
+  border-radius: 3px;
+}
+
+
 /* Tree view for node list */
 /* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_treeview */
 
 ul, #myUL {
   list-style-type: none;
+  padding-inline-start: 14.8px;
 }
 
 #myUL {
   margin: 0;
   padding: 0;
   text-overflow: ellipsis;
+  display: flex;
+  flex-direction: column;
 }
 
 .caret {
@@ -421,7 +459,6 @@ ul, #myUL {
 
 .caret::before {
   content: ">";
-  color: black;
   display: inline-block;
   margin-right: 6px;
 }

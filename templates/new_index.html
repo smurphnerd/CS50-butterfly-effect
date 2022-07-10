@@ -20,6 +20,20 @@ Home
             type="text" required></textarea>
         <button name="add-root" type="submit">Add effect</button>
     </form>
+    <form id="add-child" action="/" method="post">
+        <h3>Add consequence</h3>
+        <input id="add-child-id" name="node-id" type="hidden">
+        <textarea rows="5" cols="60" name="message" placeholder="Consequence (max 200 characters)" maxlength="200"
+            type="text" required></textarea>
+        <button name="add-child" type="submit">Add</button>
+    </form>
+    <form id="edit-message" action="/" method="post">
+        <h3>Edit message</h3>
+        <input id="edit-message-id" name="node-id" type="hidden">
+        <textarea id="edit-message-ta" rows="5" cols="60" name="message" maxlength="200" type="text"
+            required></textarea>
+        <button name="edit-message" type="submit">Add</button>
+    </form>
 </div>
 <div class="main-page">
     <div class="sidebar">
@@ -50,11 +64,11 @@ Home
 </div>
 <div id="main" class="main-content">
     <div class="tools">
-        <button title="Add consequence"><img src="/static/images/add-child.png"></button>
-        <button title="Edit message"><img src="/static/images/edit-icon.png"></button>
-        <button title="Delete effect"><img src="/static/images/bin-grey.png"></button>
+        <button id="add-consequence-btn" title="Add consequence"><img src="/static/images/add-child.png"></button>
+        <button id="edit-message-btn" title="Edit message"><img src="/static/images/edit-icon.png"></button>
+        <button id="delete-effect-btn" title="Delete effect"><img src="/static/images/bin-grey.png"></button>
     </div>
-    <ul id="myUL"></ul>
+    <ul id="myUL" style="color:#ffd710"></ul>
     <img class="background-butterfly" src="/static/images/grey-butterfly.png">
 </div>
 </div>

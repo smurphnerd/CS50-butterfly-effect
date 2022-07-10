@@ -4,6 +4,25 @@ html {
   margin: 0;
 }
 
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+  border: solid #4f4f4f 1px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #424242;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4f4f4f;
+}
+
 body {
   background-color: #1e1e1e;
   font-family: Consolas, monaco, monospace;
@@ -22,6 +41,7 @@ nav {
   position: fixed;
   display: flex;
   justify-content: center;
+  z-index: 1;
 }
 
 nav ul {
@@ -59,14 +79,6 @@ nav a:active {
   border-width: 2px;
 }
 
-@media screen and (max-width: 800px) {
-  nav a {
-    font-size: 1.2rem;
-    padding-right: 3vw;
-    padding-left: 3vw;
-  }
-}
-
 
 /* Welcome page */
 #welcome-img {
@@ -81,7 +93,7 @@ nav a:active {
   width: 100vw;
   display: flex;
   justify-content: center;
-  margin-top: 6vh;
+  margin-top: 14vh;
 }
 
 .login-form {
@@ -128,12 +140,11 @@ nav a:active {
   width: 100vw;
   max-width: 100vw;
   position: absolute;
-  overflow: hidden;
 }
 
 /* Sidebar and main page */
 .sidebar {
-  width: 18vw;
+  width: 22rem;
   height: 100%;
   position: fixed;
   background-color: #252526;
@@ -238,7 +249,7 @@ nav a:active {
 }
 
 .exit-btn {
-  width: 1.4vw;
+  width: 1.3rem;
   position: absolute;
   bottom: 9.5vh;
   cursor: pointer;
@@ -246,7 +257,7 @@ nav a:active {
 
 #exit-btn-close {
   transform: rotate(180deg);
-  right: 0.7vw;
+  right: 0.4rem;
 }
 
 .closed-sidebar {
@@ -259,7 +270,7 @@ nav a:active {
 }
 
 #exit-btn-open {
-  left: 0.7vw;
+  left: 0.4rem;
 }
 
 #main {
@@ -268,21 +279,21 @@ nav a:active {
 
 /* Main section */
 .main-content {
-  margin-left: 18vw;
+  margin-left: 22rem;
   width: 100%;
   display: flex;
   position: relative;
-  padding: 1vw;
+  padding: 1vw 0.2vw 1vw 1vw;
   transition: 0.5s;
 }
 
 .background-butterfly {
   opacity: 0.1;
-  height: 75vh;
+  width: 60vw;
   position: absolute;
-  left: 50%;
+  left: 49%;
   z-index: -1;
-  transform: translateX(-50%);
+  transform: translateX(-51%);
   margin-top: 7vh;
 }
 
@@ -402,20 +413,21 @@ nav a:active {
 /* Tree view styling */
 .root-node {
   position: relative;
-  overflow: hidden;
 }
 
 .tier-line{
   width: 0.1px;
-  height: 100%;
+  height: calc(100% - 1.2rem);
   position: absolute;
-  top: 1.2rem;
+  bottom: 0;
   margin-left: 2.5px;
 }
 
 .node {
   cursor: pointer;
   padding: 0.3vh 0.1vw;
+  word-break: break-word;
+  display: flex;
 }
 
 .node-toggled {
@@ -447,6 +459,9 @@ ul, #myUL {
   text-overflow: ellipsis;
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
+  width: 100%;
+  padding-right: 1vw;
 }
 
 .caret {
@@ -475,4 +490,25 @@ ul, #myUL {
 
 .active {
   display: block;
+}
+
+/* Phones */
+@media screen and (max-width: 800px) {
+  nav a {
+    font-size: 1.2rem;
+    padding-right: 3vw;
+    padding-left: 3vw;
+  }
+
+  .sidebar {
+    width: 0;
+  }
+
+  .closed-sidebar {
+    width: 2.1rem;
+  }
+
+  .main-content {
+    margin-left: 2.1rem;
+  }
 }

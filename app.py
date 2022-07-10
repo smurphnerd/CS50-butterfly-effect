@@ -55,7 +55,7 @@ def index():
             node = db.execute('SELECT * FROM nodes WHERE user_id = ? AND id = ?', session['user_id'], node_id)
 
             if len(node) != 1:
-                flash('invalid id')
+                flash('Invalid id')
 
             else:
                 bfly.delete_node(node_id)
@@ -77,7 +77,7 @@ def index():
         if 'root-session' in request.form:
 
             if len(db.execute('SELECT * FROM nodes WHERE user_id = ? AND id = ?', session['user_id'], request.form['node-id'])) != 1:
-                flash('invalid id')
+                flash('Invalid id')
             
             else:
                 session['root_id'] = int(request.form['node-id'])
@@ -96,7 +96,7 @@ def index():
             bfly.init_json(None)
 
         root_list = db.execute('SELECT * FROM nodes WHERE user_id = ? AND root_node = 1', session['user_id'])
-        return render_template('new_index.html', user_id = session['user_id'], roots = root_list)
+        return render_template('index.html', user_id = session['user_id'], roots = root_list)
 
 
 @app.route('/register/', methods=['GET', 'POST'])
@@ -110,15 +110,15 @@ def register():
 
         # Invalid usernames
         if not user:
-            flash('must provide username')
+            flash('Must provide a username')
         elif db.execute('SELECT * FROM users WHERE username = ?', user):
-            flash('username already taken')
+            flash('Username already taken')
         
         # Invalid passwords
         elif len(password) < 9:
-            flash('password must be at least 8 characters')
+            flash('Password must be at least 8 characters')
         elif password != request.form['confirm']:
-            flash('passwords don\'t match')
+            flash('Passwords don\'t match')
 
         # If all checks are passed, add to database
         else:
@@ -152,13 +152,13 @@ def login():
 
         # Ensure there is a username and password
         if not user:
-            flash('must enter a username', 'error')
+            flash('Must enter a username')
         elif not password:
-            flash('must enter a password', 'error')
+            flash('Must enter a password')
 
         # Ensure username exists and password is correct
         elif len(rows) != 1 or not check_password_hash(rows[0]['password_hash'], password):
-            flash('username or password is incorrect', 'error')
+            flash('Username or password is incorrect')
             
         # If valid, create a permanent session
         else:

@@ -4,6 +4,7 @@
 
 <head>
   <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="initial-scale=1, width=device-width" />
   <link href="/static/styles.css" rel="stylesheet" />
   <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -12,11 +13,11 @@
   <title>Butterfly Effect: {% block title %}{% endblock %}</title>
   {% with errors = get_flashed_messages() %}
   {% if errors %}
-  <ul>
-    {% for error in errors %}
-    <li>{{ error }}</li>
-    {% endfor %}
-  </ul>
+  {% for error in errors %}
+  <script>
+    alert("{{ error }}");
+  </script>
+  {% endfor %}
   {% endif %}
   {% endwith %}
 </head>

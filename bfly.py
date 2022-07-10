@@ -10,7 +10,11 @@ db = SQL('sqlite:///butterfly-effect.db')
 def add_root(message):
     # Check message is valid
     if len(message) < 1:
-        return flash('invalid message')
+        return flash('Invalid message')
+
+    # Check message isn't too long
+    if len(message) > 200:
+        return flash('Max of 200 characters allowed')
 
     # Add root to database
     db.execute('INSERT INTO nodes (user_id, message, root_node) VALUES (?, ?, 1)', session['user_id'], message)
@@ -27,11 +31,15 @@ def add_child(node_id, message):
 
     # Ensure a valid message
     if len(message) < 1:
-        return flash('invalid message')
+        return flash('Invalid message')
+
+    # Ensure message isn't too long
+    if len(message) > 200:
+        return flash('Max of 200 characters allowed')
 
     # Check that parent key exists
     elif len(parent) != 1:
-        return flash('no parent')
+        return flash('No parent has been provided')
     
     else:
         # Insert a new node
@@ -78,7 +86,7 @@ def init_json(node_id):
         # Check for valid id
         root = db.execute('SELECT * FROM nodes WHERE user_id = ? AND id = ?', session['user_id'], node_id)
         if len(root) != 1:
-            return flash('invalid id 1')
+            return flash('Invalid id')
         
         # Create a dictionary for the root
         else:

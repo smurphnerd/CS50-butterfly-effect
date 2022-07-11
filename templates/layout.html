@@ -27,12 +27,13 @@
     <div class="navbar"></div>
     {% if session["user_id"] %}
     <ul>
-      <li><a id="not-last" href="/">Home</a></li>
+      <li><a class="not-last" href="/">Home</a></li>
+      <li><a class="not-last" href="/diagram">Diagram</a></li>
       <li><a href="/logout">Logout</a></li>
     </ul>
     {% else %}
     <ul>
-      <li><a id="not-last" href="/login">Login</a></li>
+      <li><a class="not-last" href="/login">Login</a></li>
       <li><a href="/register/">Register</a></li>
     </ul>
     {% endif %}

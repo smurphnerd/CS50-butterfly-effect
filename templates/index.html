@@ -16,22 +16,21 @@ Home
     <button class="exit-pop-up-btn">&#10005;</button>
     <form id="add-root" action="/" method="post">
         <h3>Create butterfly effect</h3>
-        <textarea rows="5" cols="60" name="message" placeholder="Effect name (max 200 characters)" maxlength="200"
-            type="text" required></textarea>
+        <textarea rows="5" name="message" placeholder="Effect name (max 200 characters)" maxlength="200" type="text"
+            required></textarea>
         <button name="add-root" type="submit">Add effect</button>
     </form>
     <form id="add-child" action="/" method="post">
         <h3>Add consequence</h3>
         <input id="add-child-id" name="node-id" type="hidden">
-        <textarea rows="5" cols="60" name="message" placeholder="Consequence (max 200 characters)" maxlength="200"
-            type="text" required></textarea>
+        <textarea rows="5" name="message" placeholder="Consequence (max 200 characters)" maxlength="200" type="text"
+            required></textarea>
         <button name="add-child" type="submit">Add</button>
     </form>
     <form id="edit-message" action="/" method="post">
         <h3>Edit message</h3>
         <input id="edit-message-id" name="node-id" type="hidden">
-        <textarea id="edit-message-ta" rows="5" cols="60" name="message" maxlength="200" type="text"
-            required></textarea>
+        <textarea id="edit-message-ta" rows="5" name="message" maxlength="200" type="text" required></textarea>
         <button name="edit-message" type="submit">Add</button>
     </form>
     <form id="delete-node" action="/" method="post">

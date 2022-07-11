@@ -3,3 +3,5 @@ __pycache__/
 tree.py
 useful.txt
 *.json
+diagram.html
+diagram.js

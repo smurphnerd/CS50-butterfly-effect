@@ -206,7 +206,6 @@ function changeDefault() {
         // Get the selected node's id
         let div = document.querySelector(".root-item-toggled");
         if (div == null) {
-            alert('No effects have been selected! :p');
             return
         }
         const id = div.id;

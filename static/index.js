@@ -279,5 +279,3 @@ function popUpForm() {
 
 sidebarBtn();
 popUpForm();
-
-// https://www.developer.com/design/creating-a-tree-diagram-with-d3-js/

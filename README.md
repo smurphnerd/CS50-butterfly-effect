@@ -1,9 +1,11 @@
 # The Butterfly Effect
 
+My final project for Harvard's CS50 course.
+
 ## Description
 
-This is my final project for harvard's CS50 course.
 For this project, I decided to make a website where users can make their own data tree and visualise it as a tree view.
+
 This program could be used for a variety of different purposes such as:
 
 - planning the future,
@@ -56,5 +58,7 @@ Used to fetch the .json file from /user_data and display it on the page. Also us
 ## Future improvements
 
 If I were to continue working on this, one thing I would change is the error message display. It currently uses the default windows alert but it would be better to have custom alerts that display on the webpage.
+
 Another change would be to extract the tree data from the database directly into a javascript object, eliminating the need for an intermediary .json file. The only reason why I didn't go this route in the first place was because I thought I would be able to use python and jinja to display the data tree on the webpage.
+
 The final thing I would add to this program would be another page that displays the user's data tree as a graph, using a tool like d3.

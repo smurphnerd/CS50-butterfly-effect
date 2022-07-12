@@ -52,3 +52,9 @@ HTML with Jinja templating used and responsive CSS built from scratch. The websi
 ### Javascript
 
 Used to fetch the .json file from /user_data and display it on the page. Also used to give functionality to buttons that isn't possible with HTML or CSS.
+
+## Future improvements
+
+If I were to continue working on this, one thing I would change is the error message display. It currently uses the default windows alert but it would be better to have custom alerts that display on the webpage.
+Another change would be to extract the tree data from the database directly into a javascript object, eliminating the need for an intermediary .json file. The only reason why I didn't go this route in the first place was because I thought I would be able to use python and jinja to display the data tree on the webpage.
+The final thing I would add to this program would be another page that displays the user's data tree as a graph, using a tool like d3.

@@ -1,6 +1,6 @@
 # The Butterfly Effect
 
-My final project for Harvard's CS50 course.
+My final project for Harvard's CS50 course. [Click](https://youtu.be/33XMdI9fVxc) to watch the YouTube demonstration.
 
 ## Description
 

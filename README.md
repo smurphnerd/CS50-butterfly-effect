@@ -60,8 +60,8 @@ Used to fetch the .json file from **/user_data** and display it on the page. Als
 ## How to run
 
 ```
-$ git clone https://github.com/therealSmurphy/CS50-final-project.git
-$ cd butterfly-effect/
+$ git clone https://github.com/therealSmurphy/CS50-butterfly-effect.git
+$ cd CS50-butterfly-effect/
 $ pip install -r requirements.txt
 $ python3 app.py
 ```

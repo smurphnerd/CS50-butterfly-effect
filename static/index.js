@@ -249,7 +249,7 @@ function sidebarBtn() {
     document.getElementById("exit-btn-open").addEventListener("click", function () {
         document.querySelector(".closed-sidebar").style.width = 0;
         if (x.matches) {
-            document.querySelector(".sidebar").style.width = "100%";
+            document.querySelector(".sidebar").style.width = "100vw";
             document.querySelector(".main-content").style.marginLeft = 0;
         }
         else {
